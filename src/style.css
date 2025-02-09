@@ -4,7 +4,7 @@
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
+  color: rgb(255, 234, 0);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -63,6 +63,15 @@ h1 {
     -2px 2px 0px black;          /* Shadow on the bottom left (black) */
 }
 
+p {
+  font-size: 20px;
+  text-shadow: 
+    2px 2px 0px black,           /* Shadow on the right and bottom (black) */
+    -2px -2px 0px black,         /* Shadow on the left and top (black) */
+    2px -2px 0px black,          /* Shadow on the top right (black) */
+    -2px 2px 0px black;          /* Shadow on the bottom left (black) */
+}
+
 .arrow-container {
   position: fixed; /* For positioning the reflection */
   top: 80%; /* Adjusted initial position */
@@ -110,5 +119,11 @@ h1 {
 }
 
 .spy{
+  position: relative;
   border-radius: 10px;
+  height: 100%;
+  width: 20%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
 }
