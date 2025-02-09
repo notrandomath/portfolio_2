@@ -1,0 +1,17 @@
+[
+    {
+        "title": "Animage.moe",
+        "url": "https://animage.moe/",
+        "img": "/project_images/animage.moe.jpg"
+    },
+    {
+        "title": "Permafrost Clock",
+        "url": "https://randomath.itch.io/permafrost-clock",
+        "img": "/project_images/permafrost_clock.png"
+    },
+    {
+        "title": "Wordhunt Solver",
+        "url": "https://github.com/notrandomath/wordhunt-solver",
+        "img": "/project_images/wordhunt.gif"
+    }
+]
