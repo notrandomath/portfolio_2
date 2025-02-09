@@ -1,11 +1,11 @@
-import * as THREE from 'node_modules/three/build/three.module.js';
-import TWEEN from 'node_modules/three/addons/libs/tween.module.js';
-import { OrbitControls } from 'node_modules/three/addons/controls/OrbitControls.js';
-import { FontLoader } from 'node_modules/three/addons/loaders/FontLoader.js';
-import { TextGeometry } from 'node_modules/three/addons/geometries/TextGeometry.js';
-import { OutlinePass } from 'node_modules/three/examples/jsm/postprocessing/OutlinePass.js';
-import { EffectComposer } from 'node_modules/three/examples/jsm/postprocessing/EffectComposer.js';
-import { RenderPass } from 'node_modules/three/examples/jsm/postprocessing/RenderPass.js';
+import * as THREE from './three/build/three.module.js';
+import TWEEN from './three/addons/libs/tween.module.js';
+import { OrbitControls } from './three/addons/controls/OrbitControls.js';
+import { FontLoader } from './three/addons/loaders/FontLoader.js';
+import { TextGeometry } from './three/addons/geometries/TextGeometry.js';
+import { OutlinePass } from './three/examples/jsm/postprocessing/OutlinePass.js';
+import { EffectComposer } from './three/examples/jsm/postprocessing/EffectComposer.js';
+import { RenderPass } from './three/examples/jsm/postprocessing/RenderPass.js';
 
 const renderer = new THREE.WebGLRenderer( { antialias: true } );
 renderer.setPixelRatio( window.devicePixelRatio );
