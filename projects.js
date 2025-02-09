@@ -6,7 +6,6 @@ async function createDivFromJsonFile() {
     }
 
     const jsonData = await response.json();
-    console.log(jsonData)
 
     const box = document.getElementById('project-box');
     const colors = ['red', 'blue', 'green', 'yellow', 'purple']
