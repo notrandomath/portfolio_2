@@ -7,6 +7,8 @@ import { OutlinePass } from './three/examples/jsm/postprocessing/OutlinePass.js'
 import { EffectComposer } from './three/examples/jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from './three/examples/jsm/postprocessing/RenderPass.js';
 
+console.log('threejs loaded');
+
 const renderer = new THREE.WebGLRenderer( { antialias: true } );
 renderer.setPixelRatio( window.devicePixelRatio );
 renderer.setSize( window.innerWidth, window.innerHeight );
