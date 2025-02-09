@@ -24,7 +24,7 @@ const mshFloor = new THREE.Mesh( geoFloor, matFloor );
 mshFloor.rotation.x = - Math.PI * 0.5;
 
 const loader = new FontLoader();
-loader.load('src/Bangers_Regular.json', function(font) {
+loader.load('Bangers_Regular.json', function(font) {
     
     const text = new TextGeometry('Omar Yahia', {
         font: font,
