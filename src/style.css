@@ -1,5 +1,5 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Bangers", system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -12,34 +12,103 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+
 body, html {
   margin: 0; /* Important: Remove default margins */
   height: 100%; /* Important for viewport height */
 }
 
-.container {
-  /* Key change: scroll-snap-type on the container */
-  scroll-snap-type: y mandatory;
-  overflow-y: scroll; /* Enable scrolling */
-  height: 100vh; /* Use viewport height for the container */
+.wrapper {
+  width: 100%;
+  height: 100%; /* Important for viewport height */
+  position: relative; /* Needed for absolute positioning of #threedcontainer */
 }
 
-.page {
-  width: 100%;
-  height: 100vh;
-  scroll-snap-align: start;
-  position: relative;
+.container {
+  overflow-y: scroll;
+  height: 500vh; /* Or a specific height */
 }
-.separators{
+
+#threedcontainer {
+  position: fixed; /* Or fixed, depending on your needs */
+  top: 0; /* Adjust as needed */
+  left: 0; /* Adjust as needed */
+  width: 100%; /* Or specific width */
+  height: 100%; /* Or specific height */
+  z-index: 0; /* Ensure it's above other content */
+}
+
+#expand-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  position: fixed;
+  top: 50%; /* Adjusted initial position */
+  left: 50%;
+  width: 100%;
+  height: 0%;
+  transform: translateX(-50%); /* Center the box */
+  background-color: #9ba9b8;
+  z-index: 1; /* Even higher than threedcontainer */
+  border: 2px solid white;
+}
+
+h1 {
+  font-size: 50px;
+  text-shadow: 
+    2px 2px 0px black,           /* Shadow on the right and bottom (black) */
+    -2px -2px 0px black,         /* Shadow on the left and top (black) */
+    2px -2px 0px black,          /* Shadow on the top right (black) */
+    -2px 2px 0px black;          /* Shadow on the bottom left (black) */
+}
+
+.arrow-container {
+  position: fixed; /* For positioning the reflection */
+  top: 80%; /* Adjusted initial position */
+  left: calc(50% - 50px);
+  width: 100px; /* Adjust as needed */
+  height: 100px; /* Adjust as needed */
+}
+
+.arrow {
+  position: absolute;
+  bottom: 0%; /* Adjust for reflection distance */
+  left: 0;
+  width: 100px;
+  height: 100px;
+  animation: blink 2s ease-in-out infinite;
+}
+
+.reflection {
+  position: absolute;
+  bottom: -25%; /* Adjust for reflection distance */
+  left: 0;
+  width: 100px;
+  height: 100px;
+  opacity: 0.75; /* Adjust reflection opacity */
+  filter: blur(5px); /* Add blur for reflection effect */
+  animation: blink2 2s ease-in-out infinite;
+}
+
+
+@keyframes blink {
+  0% { opacity: 0; bottom: 25%; }
+  50% { opacity: 1; bottom: 0%; }
+  100% { opacity: 0; bottom: 25%; }
+}
+
+@keyframes blink2 {
+  0% { opacity: 0; bottom: 0%; }
+  50% { opacity: 0.75; bottom: -25%; }
+  100% { opacity: 0; bottom: 0%; }
+}
+
+.row{
   display: flex;
   flex-direction: row;
 }
 
-.overlap {
-  position: absolute;
-  top: -100px;
-  width: 100%; /* Example width */
-  height: 200px; /* Example height */
-  background-color: rgba(0, 0, 255); /* Semi-transparent blue */
-  z-index: 2; /* Higher z-index on top */
+.spy{
+  border-radius: 10px;
 }

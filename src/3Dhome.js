@@ -3,6 +3,9 @@ import TWEEN from 'three/addons/libs/tween.module.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { FontLoader } from 'three/addons/loaders/FontLoader.js';
 import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
+import { OutlinePass } from 'three/examples/jsm/postprocessing/OutlinePass.js';
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 
 const renderer = new THREE.WebGLRenderer( { antialias: true } );
 renderer.setPixelRatio( window.devicePixelRatio );
@@ -15,7 +18,7 @@ const controls = new OrbitControls( camera, renderer.domElement );
 
 const scene = new THREE.Scene();
 
-const matFloor = new THREE.MeshPhongMaterial( { color: 0x808080 } );
+const matFloor = new THREE.MeshPhongMaterial( { color: 0x9ba9b8 } );
 const geoFloor = new THREE.PlaneGeometry( 100, 100 );
 const mshFloor = new THREE.Mesh( geoFloor, matFloor );
 mshFloor.rotation.x = - Math.PI * 0.5;
@@ -76,8 +79,8 @@ loader.load('src/Bangers_Regular.json', function(font) {
     
     mshText.castShadow = true;
     mshText.receiveShadow = true;
-    mshText.position.set(-1, 0.5, 0);
-    mshTextOutline.position.set(-1, 0.5, 0);
+    mshText.position.set(-1, 0.6, 0);
+    mshTextOutline.position.set(-1, 0.6, 0);
 
     mshText2.castShadow = true;
     mshText2.receiveShadow = true;
@@ -90,11 +93,29 @@ loader.load('src/Bangers_Regular.json', function(font) {
     scene.add(mshText2Outline);
 });
 
-const ambient = new THREE.AmbientLight( 0x444444 );
+const ambient = new THREE.AmbientLight( 0x888888 );
 
 const spotLight1 = createSpotlight( 0xFF00FF );
 const spotLight2 = createSpotlight( 0x8800FF );
 const spotLight3 = createSpotlight( 0x0000FF );
+
+// Postprocessing setup
+const composer = new EffectComposer(renderer); // renderer is your THREE.WebGLRenderer
+const renderPass = new RenderPass(scene, camera); // camera is your THREE.Camera
+composer.addPass(renderPass);
+
+const outlinePass = new OutlinePass(new THREE.Vector2(window.innerWidth, window.innerHeight), scene, camera);
+composer.addPass(outlinePass);
+
+const color = 0x000000;
+// Configure outline pass (optional)
+outlinePass.edgeStrength = 3;        // Adjust outline thickness
+outlinePass.edgeGlow = 0.5;          // Adjust outline glow
+outlinePass.visibleEdgeColor.set(color);
+outlinePass.hiddenEdgeColor.set(color);
+
+// Add the cone to the outline pass's selected objects
+outlinePass.selectedObjects = [spotLight1.userData.coneMesh, spotLight2.userData.coneMesh, spotLight3.userData.coneMesh];
 
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.1); // Color and intensity
 scene.add(ambientLight);
@@ -117,9 +138,16 @@ function init() {
   scene.add( ambient );
   scene.add( spotLight1, spotLight2, spotLight3 );
   
-  const container = document.getElementById("threedcontainer3");
+  const container = document.getElementById("threedcontainer");
   container.appendChild( renderer.domElement );
   window.addEventListener( 'resize', onWindowResize );
+  window.addEventListener("scroll", function() {
+    if (window.scrollY >= 4*window.innerHeight) {
+        container.style.display = "none"; // Hide the object if scrollY > threshold
+    } else {
+        container.style.display = "block"; // Show the object if scrollY <= threshold
+    }
+});
 
   controls.target.set( 0, 0.5, 0 );
   controls.maxPolarAngle = Math.PI / 2;
@@ -145,12 +173,11 @@ function createSpotlight( color ) {
   const coneMaterial = new THREE.MeshBasicMaterial({ color: color, transparent: true, opacity: 0.1, side: THREE.DoubleSide });
   const coneMesh = new THREE.Mesh(coneGeometry, coneMaterial);
   coneMesh.geometry.rotateX( -Math.PI / 2 );
+
   scene.add(coneMesh);
-  newObj.userData.coneMesh = coneMesh;
-  
+  newObj.userData.coneMesh = coneMesh;  
 
   return newObj;
-
 }
 
 function onWindowResize() {
@@ -194,14 +221,14 @@ function animate() {
 
   [spotLight1, spotLight2, spotLight3].forEach(light => {
     if (light.userData.coneMesh) {
-      light.userData.coneMesh.position.copy(
-        light.position.clone().add(light.target.position).multiplyScalar(0.5)
-      );
+      const position = light.position.clone().add(light.target.position).multiplyScalar(0.5);
+
+      light.userData.coneMesh.position.copy(position);
       light.userData.coneMesh.lookAt(light.target.position); // Aim toward the center
     }
   });
 
-  renderer.render( scene, camera );
+  composer.render( scene, camera );
 
 }
 

@@ -2,25 +2,30 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>My first three.js app</title>
-		<style>
-			body { margin: 0; }
-		</style>
+		<title>Action!</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="src/style.css">
 	</head>
 	<body>
 		<div class="container">
-			<div class="page">
-				<div id="threedcontainer1"><script type="module" src="src/3Dhome1.js"></script></div>
-			</div> 
-			<div class="page">
-				<div class="overlap"></div>
-				<div id="threedcontainer2"><script type="module" src="src/3Dhome2.js"></script></div>
-			</div> 
-			<div class="page">
-				<div id="threedcontainer3"><script type="module" src="src/3Dhome3.js"></script></div>
-			</div> 
-			<div class="page"></div>
+			<div id="threedcontainer"><script type="module" src="src/3Dhome.js"></script></div>
+			<div id="expand-box">
+				<script type="module" src="src/expand.js"></script>
+				<h1>Projects</h1>
+				<div class="row">
+					<div class="col">
+						<h1>Text</h1>
+						<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut animi aliquam ipsa, minima dicta ullam quam exercitationem, commodi, nulla dolorem facere libero sapiente dolorum! Tenetur obcaecati pariatur officia sunt voluptatum!</p>
+					</div>
+					<img class="spy" src="/spy.png" alt="">
+				</div>
+			</div>
+			<div class="arrow-container">
+				<img class="arrow" src="/down-arrow.svg" alt="">
+				<img class="reflection" src="/down-arrow.svg" alt="">
+			  </div>
 		</div>
 	</body>
 </html>
